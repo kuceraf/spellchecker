@@ -6,7 +6,7 @@
          version="2.5">
 
     <!--web.xml - Web Application deployment descriptor (J2EE standard)-->
-    <display-name>Skeleton app - Spring MVC Web Application</display-name>
+    <display-name>${app.name} app - Spring MVC Web Application</display-name>
 
     <!--
     Servlet
