@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+    <!--web.xml - Web Application deployment descriptor (J2EE standard)-->
+    <display-name>Skeleton app - Spring MVC Web Application</display-name>
+
+    <!--
+    Servlet
+    a class which responds to a particular type of network request - most commonly an HTTP request.
+    Servlets run in a servlet container which handles the networking side.
+    <init-param> defines initialization attributes.
+
+    DispatcherServerlet (more info: http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)
+    dispatches requests to handlers (compiled class that executes the servlet).
+    Each DispatcherServlet has its own WebApplicationContext which inherits all the beans already defined in the root WebApplicationContext.
+    Upon initialization of a DispatcherServlet, Spring MVC looks for a file named [servlet-name]-servlet.xml in the WEB-INF directory of your web application
+    and creates the beans defined there, overriding the definitions of any beans defined with the same name in the global scope.
+    The file [servlet-name]-servlet.xml should contain all of your Spring Web MVC-specific components (beans).
+    -->
+    <servlet>
+        <servlet-name>rest</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--
+    Servlet-mapping
+    Defines the URL pattern that calls this servlet
+    All requests starting with <url-pattern> will be handled by the DispatcherServlet instance named <servlet-name>
+    -->
+    <servlet-mapping>
+        <servlet-name>rest</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <!--
+    OPTIONAL
+
+    context-param
+    store data which is common for whole application
+    -->
+
+    <!--<context-param>-->
+    <!--<param-name>contextConfigLocation</param-name>-->
+    <!--<param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>-->
+    <!--</context-param>-->
+
+    <!--<listener>-->
+    <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
+
+    <!--<filter>-->
+    <!--<filter-name>helloWorld</filter-name>-->
+    <!--<filter-class>com.acme.filter.HelloWorldFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+    <!--<filter-name>helloWorld</filter-name>-->
+    <!--<url-pattern>/filter.jsp</url-pattern>-->
+    <!--</filter-mapping>-->
+</web-app>
