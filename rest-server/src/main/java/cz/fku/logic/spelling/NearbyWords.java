@@ -1,6 +1,7 @@
 package cz.fku.logic.spelling;
 
 import cz.fku.logic.dictionary.Dictionary;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -11,6 +12,8 @@ public class NearbyWords implements ISpellingSuggest, IWordModification {
 
 	private Dictionary dict;
 
+	final private org.slf4j.Logger logger = LoggerFactory.getLogger(NearbyWords.class);
+
 	public NearbyWords(Dictionary dict)
 	{
 		this.dict = dict;
@@ -18,7 +21,7 @@ public class NearbyWords implements ISpellingSuggest, IWordModification {
 
 	@Override
 	public List<String> distanceOne(String s, boolean wordsOnly )  {
-		   List<String> retList = new ArrayList<String>();
+		   List<String> retList = new ArrayList<>();
 		   insertions(s, retList, wordsOnly);
 		   substitution(s, retList, wordsOnly);
 		   deletions(s, retList, wordsOnly);
@@ -84,20 +87,22 @@ public class NearbyWords implements ISpellingSuggest, IWordModification {
 	public List<String> suggestions(String word, int numSuggestions) {
 
 		// initial variables
-		Queue<String> queue = new LinkedList<String>();     // String to explore
-		HashSet<String> visited = new HashSet<String>();   // to avoid exploring the same
+		Queue<String> queue = new LinkedList<>();     // String to explore
+		HashSet<String> visited = new HashSet<>();   // to avoid exploring the same
 														   // string multiple times
-		List<String> retList = new LinkedList<String>();   // words to return
+		List<String> retList = new LinkedList<>();   // words to return
 
 		// insert first node
 		queue.add(word);
 		visited.add(word);
-
+		//TODO use recursion
 		String curr;
-		int itNum = 0;
 		while(!queue.isEmpty()) {
 			curr = queue.remove();
+			logger.info("GENERATING distanceOne from: " + curr);
+			logger.info("Queue size " + queue.size());
 			List<String> neighbors = distanceOne(curr, false);
+			logger.info("GENERATED neighbors number: " + neighbors.size());
 			for(String neighbor : neighbors) {
 				if(!visited.contains(neighbor)) {
 					visited.add(neighbor);
@@ -109,31 +114,11 @@ public class NearbyWords implements ISpellingSuggest, IWordModification {
 				if(numSuggestions == retList.size()){
 					return retList;
 				}
-				itNum++;
 			}
+			logger.info("ALL NEIGHBORS PROCESSED");
 		}
 
 		return retList;
 
 	}
-
-	//TODO dat do testu
-//   public static void main(String[] args) {
-//	   //basic testing code to get started
-//	   String word = "i";
-//	   // Pass NearbyWords any Dictionary implementation you prefer
-//	   Dictionary d = new DictionaryHashSet();
-//	   DictionaryLoader.loadDictionary(d, "data/dict.txt");
-//	   NearbyWords w = new NearbyWords(d);
-//	   List<String> l = w.distanceOne(word, true);
-//	   System.out.println("One away word Strings for for \""+word+"\" are:");
-//	   System.out.println(l+"\n");
-//
-//	   word = "tailo";
-//	   List<String> suggest = w.suggestions(word, 10);
-//	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
-//	   System.out.println(suggest);
-//
-//   }
-
 }
