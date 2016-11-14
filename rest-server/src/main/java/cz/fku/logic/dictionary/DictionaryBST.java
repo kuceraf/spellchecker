@@ -1,13 +1,17 @@
 package cz.fku.logic.dictionary;
 
+import org.springframework.stereotype.Component;
+
 import java.util.TreeSet;
 
+@Component
 public class DictionaryBST implements Dictionary
 {
    private TreeSet<String> dict;
 
 	public DictionaryBST() {
         dict = new TreeSet<>();
+        DictionaryLoader.loadDictionary(this, DictionaryResource.EN.resourcePath);
     }
 
     public boolean addWord(String word) {

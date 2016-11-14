@@ -2,9 +2,12 @@ package cz.fku.logic.spelling;
 
 import cz.fku.logic.dictionary.Dictionary;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class NearbyWords implements ISpellingSuggest, IWordModification {
 	// THRESHOLD to determine how many words to look through when looking
 	// for spelling suggestions (stops prohibitively long searching)
@@ -14,7 +17,7 @@ public class NearbyWords implements ISpellingSuggest, IWordModification {
 
 	final private org.slf4j.Logger logger = LoggerFactory.getLogger(NearbyWords.class);
 
-	public NearbyWords(Dictionary dict)
+	public NearbyWords(@Autowired Dictionary dict)
 	{
 		this.dict = dict;
 	}

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * Maps to <protocol>://<hostname>:<port>/<context-root>/<servlet-mapping><url-pattern>/testEcho/{testId}
  * e.g.: http://localhost:7001/app/api/testEcho/1
+ *
+ * SpringBoot mapping: http://localhost:8080/testEcho/1
  */
 @RestController
 @RequestMapping("/testEcho")

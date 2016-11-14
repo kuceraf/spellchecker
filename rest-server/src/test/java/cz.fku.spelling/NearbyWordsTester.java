@@ -42,7 +42,7 @@ public class NearbyWordsTester {
     }
 
     @Test
-    public void tetsSuggestions(){
+    public void testSuggestions(){
         Dictionary d = new DictionaryBST();
         DictionaryLoader.loadDictionary(d, DictionaryResource.EN.resourcePath);
         NearbyWords w = new NearbyWords(d);
